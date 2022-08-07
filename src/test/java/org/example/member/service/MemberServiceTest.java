@@ -5,6 +5,7 @@ import org.example.member.Grade;
 import org.example.member.Member;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,17 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     MemberService memberService = new MemberServiceImpl();
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
-    void join() {
+    @DisplayName("회원가입")
+    void should_join_member() {
         //given
         Member member = new Member(1L, "memberA", Grade.VIP);
 
@@ -31,10 +24,6 @@ class MemberServiceTest {
         Member foundMember = memberService.findMember(1L);
 
         //then
-        Assertions.assertThat(member).isEqualTo(member);
-    }
-
-    @Test
-    void findMember() {
+        Assertions.assertThat(foundMember).isEqualTo(member);
     }
 }
