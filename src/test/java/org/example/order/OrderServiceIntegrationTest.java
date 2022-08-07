@@ -1,7 +1,7 @@
 package org.example.order;
 
 import org.assertj.core.api.Assertions;
-import org.example.AppConfig;
+import org.example.AppConfigWithNoSpring;
 import org.example.member.Grade;
 import org.example.member.Member;
 import org.example.member.service.MemberService;
@@ -43,9 +43,9 @@ class OrderServiceIntegrationTest {
 
         @BeforeEach
         public void beforeEach(){
-            AppConfig appConfig = new AppConfig();
-            memberService = appConfig.memberService();
-            orderService = appConfig.orderService();
+            AppConfigWithNoSpring appConfigWithNoSpring = new AppConfigWithNoSpring();
+            memberService = appConfigWithNoSpring.memberService();
+            orderService = appConfigWithNoSpring.orderService();
         }
 
         @Test

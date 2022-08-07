@@ -1,12 +1,10 @@
 package org.example.member.service;
 
 import org.assertj.core.api.Assertions;
-import org.example.AppConfig;
+import org.example.AppConfigWithNoSpring;
 import org.example.member.Grade;
 import org.example.member.Member;
 import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
@@ -41,8 +39,8 @@ class MemberServiceTest {
 
         @BeforeEach
         public void beforeEach(){
-            AppConfig appConfig = new AppConfig();
-            memberService = appConfig.memberService();
+            AppConfigWithNoSpring appConfigWithNoSpring = new AppConfigWithNoSpring();
+            memberService = appConfigWithNoSpring.memberService();
         }
 
         @Test

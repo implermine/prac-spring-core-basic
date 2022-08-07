@@ -9,8 +9,6 @@ import org.example.member.service.MemberService;
 import org.example.member.service.MemberServiceImpl;
 import org.example.order.OrderService;
 import org.example.order.OrderServiceImpl;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * DIP 와 OCP를 지키기 위해, '누군가'가 인터페이스에 구현체를 주입해줘야 한다.
@@ -23,20 +21,16 @@ import org.springframework.context.annotation.Configuration;
  * 'IOC 컨테이너' 또는 'DI 컨테이너'라 한다.
  * ###
  */
-@Configuration
-public class AppConfig {
+public class AppConfigWithNoSpring {
 
-    @Bean
-    public MemberService memberService(){ // <- 요게 이름으로 들어감.
+    public MemberService memberService(){
         return new MemberServiceImpl(this.memberRepository());
     }
 
-    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(this.memberRepository(),this.discountPolicy());
     }
 
-    @Bean
     public MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }
@@ -44,7 +38,6 @@ public class AppConfig {
     /**
      * fix로 결정
      */
-    @Bean
     public DiscountPolicy discountPolicy(){
         return new FixDiscountPolicy();
 //        return new RateDiscountPolicy();
