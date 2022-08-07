@@ -8,8 +8,15 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
+    /**
+     * 구현체에 의존하는 DIP 위반 코드
+     */
     public MemberServiceImpl() {
         this.memberRepository = new MemoryMemberRepository();
+    }
+
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Override

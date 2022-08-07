@@ -1,29 +1,68 @@
 package org.example.member.service;
 
 import org.assertj.core.api.Assertions;
+import org.example.AppConfig;
 import org.example.member.Grade;
 import org.example.member.Member;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    @Test
-    @DisplayName("회원가입")
-    void should_join_member() {
-        //given
-        Member member = new Member(1L, "memberA", Grade.VIP);
 
-        //when
-        memberService.join(member);
-        Member foundMember = memberService.findMember(1L);
+    @Nested
+    @DisplayName("OCP나 DIP를 지키지 않은 테스트")
+    class NoSpring{
 
-        //then
-        Assertions.assertThat(foundMember).isEqualTo(member);
+        MemberService memberService = new MemberServiceImpl();
+
+
+        @Test
+        @DisplayName("회원가입")
+        void should_join_member() {
+            //given
+            Member member = new Member(1L, "memberA", Grade.VIP);
+
+            //when
+            memberService.join(member);
+            Member foundMember = memberService.findMember(1L);
+
+            //then
+            Assertions.assertThat(foundMember).isEqualTo(member);
+        }
     }
+
+    @Nested
+    @DisplayName("OCP와 DIP를 지키지만 Spring을 사용치 않은 테스트")
+    class NoSpringButOCP{
+
+        MemberService memberService;
+
+        @BeforeEach
+        public void beforeEach(){
+            AppConfig appConfig = new AppConfig();
+            memberService = appConfig.memberService();
+        }
+
+        @Test
+        @DisplayName("회원가입")
+        void should_join_member() {
+            //given
+            Member member = new Member(1L, "memberA", Grade.VIP);
+
+            //when
+            memberService.join(member);
+            Member foundMember = memberService.findMember(1L);
+
+            //then
+            Assertions.assertThat(foundMember).isEqualTo(member);
+        }
+
+
+
+    }
+
+
+
 }
