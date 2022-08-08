@@ -1,11 +1,14 @@
 package org.example.order;
 
+import lombok.Setter;
 import org.example.discount.DiscountPolicy;
 import org.example.discount.FixDiscountPolicy;
 import org.example.member.Member;
 import org.example.member.repository.MemberRepository;
 import org.example.member.repository.MemoryMemberRepository;
 
+
+@Setter // xml에 Setter로 설정해보려고 추가함
 public class OrderServiceImpl implements OrderService{
 
 
@@ -14,8 +17,9 @@ public class OrderServiceImpl implements OrderService{
     // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 
     // 따라서, OCP와 DIP를 지키기 위해, 다음과같이 구현체가 아닌 인터페이스에 의존
-    private final MemberRepository memberRepository;
-    private final DiscountPolicy discountPolicy;
+    private MemberRepository memberRepository;
+    private DiscountPolicy discountPolicy;
+    private Integer someConstant; // <- 마찬가지로 xml 설정
 
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;

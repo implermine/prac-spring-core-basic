@@ -15,3 +15,9 @@
 ## 스프링 컨테이너, DI 컨테이너, IOC 컨테이너
 > ApplicationContext를 스프링 컨테이너라 한다.
 > AppConfig가 DI 컨테이너였으니, 스프링으로 전환된 AppConfig의 '정보'를 ApplicationContext에 올리면 그때부터 ApplicationContext가 DI 컨테이너이자, 스프링 컨테이너이다.
+
+## BeanDefinitionName
+> 빈의 이름이자 ID이다.
+
+## BeanDefinition
+> Annotation, XML등으로 작성한 빈 정보를 추상화 한 데이터, 스프링 컨테이너가 빈을 등록하는것에 필요하다.

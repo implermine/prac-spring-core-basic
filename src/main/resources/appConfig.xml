@@ -2,3 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="memberService" class="org.example.member.service.MemberServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository"></constructor-arg>
+    </bean>
+
+    <bean id="memberRepository" class="org.example.member.repository.MemoryMemberRepository">
+    </bean>
+
+<!--    <bean id="orderService" class="org.example.order.OrderServiceImpl">-->
+<!--        <constructor-arg name="memberRepository" ref="memberRepository"></constructor-arg>-->
+<!--        <constructor-arg name="discountPolicy" ref="discountPolicy"></constructor-arg>-->
+<!--    </bean>-->
+
+    <bean id="orderService" class="org.example.order.OrderServiceImpl">
+        <property name="memberRepository" ref="memberRepository"></property>
+        <property name="discountPolicy" ref="discountPolicy"></property>
+        <property name="someConstant" value = "77"></property>
+    </bean>
+
+    <bean id="discountPolicy" class = "org.example.discount.FixDiscountPolicy">
+    </bean>
+</beans>
