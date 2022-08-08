@@ -22,6 +22,11 @@ import org.springframework.context.annotation.Configuration;
  * AppConfig처럼 객체를 생성하고 관리하면서 의존관계를 연결해 주는 것을
  * 'IOC 컨테이너' 또는 'DI 컨테이너'라 한다.
  * ###
+ *
+ * ###
+ * 스프링은 빈을 생성하고, 의존관계를 주입하는 단계가 나누어져 있다. 그런데 이렇게 자바 코드로 스프링 빈을 등록하면 생성자를 호출하면서
+ * 의존관계 주입도 한번에 처리된다. TODO
+ * ###
  */
 @Configuration
 public class AppConfig {
@@ -31,7 +36,12 @@ public class AppConfig {
         return new MemberServiceImpl(this.memberRepository());
     }
 
-    @Bean
+    /**
+     * 빈 이름 직접 명시
+     *
+     * 주의, 빈 이름은 항상 다른 이름을 부여해야 한다.
+     */
+    @Bean(name = "orderService")
     public OrderService orderService(){
         return new OrderServiceImpl(this.memberRepository(),this.discountPolicy());
     }
@@ -49,4 +59,6 @@ public class AppConfig {
         return new FixDiscountPolicy();
 //        return new RateDiscountPolicy();
     }
+
+    //TODO: fix랑 rate 둘다 등록 안되나 bean name으로 조회하면 되자나
 }
