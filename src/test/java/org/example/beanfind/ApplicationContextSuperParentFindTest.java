@@ -33,6 +33,9 @@ public class ApplicationContextSuperParentFindTest {
         });
     }
 
+    /**
+     * 국룰
+     */
     @Test
     @DisplayName("부모 타입으로 조회 시, 자식이 둘 이상 있으면, 빈 이름을 지정하면 된다.")
     void should_success_finding_bean_when_select_by_parent_type_with_specific_bean_name_and_child_are_plural() {
