@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
  */
 public class StatefulServiceTest {
 
+//    @Test -> Due to harsh testing condtion
     void statefulServiceSingletonHard() throws InterruptedException {
         ApplicationContext ac = new AnnotationConfigApplicationContext(TestConfig.class);
 
@@ -32,6 +33,7 @@ public class StatefulServiceTest {
         thread2.start();
 
         while (thread1.isAlive() || thread2.isAlive()) {
+            //noinspection BusyWait
             Thread.sleep(100);
         }
 
