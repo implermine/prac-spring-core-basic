@@ -1,13 +1,18 @@
 package org.example.order;
 
 import lombok.Setter;
+import org.example.annotationForQualifier.MainDiscountPolicy;
 import org.example.discount.DiscountPolicy;
 import org.example.discount.FixDiscountPolicy;
 import org.example.member.Member;
 import org.example.member.repository.MemberRepository;
 import org.example.member.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 
+@Component
 @Setter // xml에 Setter로 설정해보려고 추가함
 public class OrderServiceImpl implements OrderService{
 
@@ -21,9 +26,22 @@ public class OrderServiceImpl implements OrderService{
     private DiscountPolicy discountPolicy;
     private Integer someConstant; // <- 마찬가지로 xml 설정
 
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    /**
+     * DiscountPolicy의 두 구현체(Fix와 Rate) 모두 Component로 올라와 있더라도, 변수명을 지정해서 구현체를 고를 수 있다.
+     */
+
+    /**
+     * @Qualifier에 대해...
+     *
+     * 변수명보다 Qualifier가 우선한다.
+     *
+     * 우선권은 Qualifier -> Primary -> 변수명이다.
+     */
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy fixDiscountPolicy) {
+        System.out.println("call AppConfig.orderService");
         this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
+        this.discountPolicy = fixDiscountPolicy;
     }
 
     /**

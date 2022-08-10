@@ -1,10 +1,14 @@
 package org.example.discount;
 
+import org.example.annotationForQualifier.MainDiscountPolicy;
 import org.example.member.Grade;
 import org.example.member.Member;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("mainDiscountPolicy")
+@MainDiscountPolicy
 public class FixDiscountPolicy implements DiscountPolicy{
 
     private final static int discountFixAmount = 1000; // 1000원 할인

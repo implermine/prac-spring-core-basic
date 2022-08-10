@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * ###
  * 스프링은 빈을 생성하고, 의존관계를 주입하는 단계가 나누어져 있다. 그런데 이렇게 자바 코드로 스프링 빈을 등록하면 생성자를 호출하면서
- * 의존관계 주입도 한번에 처리된다. TODO
+ * 의존관계 주입도 한번에 처리된다.
  * ###
  */
 @Configuration
@@ -33,6 +33,19 @@ public class AppConfig {
 
     @Bean
     public MemberService memberService(){ // <- 요게 이름으로 들어감.
+        /**
+         * 싱글턴 CGLIB 테스트 용도
+         *
+         * 스프링 컨테이너가 각각 @Bean을 호출해서 스프링 빈을 생성한다. 그래서 memberRepository()는
+         * 다음과 같이 총 3번이 호출되어야 하는 것 아닌가?
+         * 1. 스프링 컨테이너가 스프링 빈에 등록하기 위헤 @Bean이 붙어있는 memberRepository() 호출
+         * 2. memberService() 로직에서 memberRepository() 호출
+         * 3. orderService() 로직에서 memberRepository() 호출
+         */
+
+
+
+        // 1번
         return new MemberServiceImpl(this.memberRepository());
     }
 
@@ -43,11 +56,13 @@ public class AppConfig {
      */
     @Bean(name = "orderService")
     public OrderService orderService(){
+        // 1번
         return new OrderServiceImpl(this.memberRepository(),this.discountPolicy());
     }
 
     @Bean
     public MemberRepository memberRepository(){
+        // 2번? 3번?
         return new MemoryMemberRepository();
     }
 
