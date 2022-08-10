@@ -21,24 +21,14 @@ public class StatefulServiceTest {
         StatefulService statefulService2 = ac.getBean("statefulService", StatefulService.class);
 
         // Thread A: A사용자 10000원 주문
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                statefulService1.order("userA", 10000);
-            }
-        });
+        Thread thread1 = new Thread(() -> statefulService1.order("userA", 10000));
         thread1.start();
 
         Thread.sleep(100);
 
 
         // Thread B: B사용자 20000원 주문
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                statefulService2.order("userB", 20000);
-            }
-        });
+        Thread thread2 = new Thread(() -> statefulService2.order("userB", 20000));
         thread2.start();
 
         while (thread1.isAlive() || thread2.isAlive()) {
