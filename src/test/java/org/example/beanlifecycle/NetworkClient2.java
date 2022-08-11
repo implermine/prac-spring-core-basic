@@ -13,7 +13,7 @@ public class NetworkClient2 {
 
     public NetworkClient2(String url){
         this.url = url;
-        System.out.println("NetworkClient2 생성자 호출, url = " + this.url);
+        System.out.println("Constructor called... url = " + this.url);
     }
 
     // 서비스 시작 시 호출
@@ -27,22 +27,18 @@ public class NetworkClient2 {
 
     // 서비스 종료시 호출
     public void disconnect(){
-        System.out.println("close called... " + url);
+        System.out.println("disconnect called... " + url);
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("afterPropertiesSet called...");
 
-
-        this.call("초기화 연결 메시지");
+    public void init(){
+        System.out.println("Init called...");
+        this.connect();
+        call("초기화 연결 메시지");
     }
 
-    @Override
-    public void destroy() throws Exception {
-
-        System.out.println("destroy called...");
-
-        this.disconnect();
+    public void close(){
+        System.out.println("close called...");
+        disconnect();
     }
 }

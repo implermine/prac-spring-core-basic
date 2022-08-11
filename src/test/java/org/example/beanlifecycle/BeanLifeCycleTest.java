@@ -1,5 +1,6 @@
 package org.example.beanlifecycle;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,8 @@ import org.springframework.context.annotation.Configuration;
  */
 public class BeanLifeCycleTest {
 
+
+
     @Test
     void lifeCycleTest(){
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(LifeCycleAppConfig.class);
@@ -49,17 +52,19 @@ public class BeanLifeCycleTest {
             String url = "http://hello-spring.dev";
             return new NetworkClient(url);
         }
-//        @Bean
-//        public NetworkClient2 networkClient2(){
-//
-//            String url = "http://hello-spring.dev";
-//            return new NetworkClient2(url);
-//        }
-//        @Bean
-//        public NetworkClient2 networkClient3(){
-//
-//            String url = "http://hello-spring.dev";
-//            return new NetworkClient3(url);
-//        }
+
+        @Bean(initMethod = "init", destroyMethod = "close")
+        public NetworkClient2 networkClient2(){
+            String url = "http://hello-spring.dev";
+            return new NetworkClient2(url);
+        }
+
+
+        @Bean
+        public NetworkClient3 networkClient3(){
+
+            String url = "http://hello-spring.dev";
+            return new NetworkClient3(url);
+        }
     }
 }
